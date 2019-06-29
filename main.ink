@@ -4,4 +4,5 @@
 This is a story.
 
 *   Hurrah!
+*   Does it work?
     -> END
