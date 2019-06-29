@@ -26,7 +26,16 @@
         }
     }
 
+	// trying to do an observer callback
+	story.ObserveVariable("display_panels", panelDisplay);
+	story.ObserveVariable("left_background", update_image);
+	story.ObserveVariable("right_background", update_image);
+	story.ObserveVariable("left_foreground", update_image);
+	story.ObserveVariable("right_foreground", update_image);
+
     var storyContainer = document.querySelector('#story');
+	var leftPanel  = document.querySelector('#left');
+	var rightPanel  = document.querySelector('#right');
     var outerScrollContainer = document.querySelector('.outerContainer');
 
     // Kick off the start of the story!
@@ -137,7 +146,8 @@
         // Extend height to fit
         // We do this manually so that removing elements and creating new ones doesn't
         // cause the height (and therefore scroll) to jump backwards temporarily.
-        storyContainer.style.height = contentBottomEdgeY()+"px";
+		var newHeight = contentBottomEdgeY()+"px";
+        //storyContainer.style.height = newHeight;
 
         if( !firstTime )
             scrollDown(previousBottomEdge);
@@ -171,10 +181,10 @@
         var target = previousBottomEdge;
         
         // Can't go further than the very bottom of the page
-        var limit = outerScrollContainer.scrollHeight - outerScrollContainer.clientHeight;
+        var limit = storyContainer.scrollHeight - storyContainer.clientHeight;
         if( target > limit ) target = limit;
 
-        var start = outerScrollContainer.scrollTop;
+        var start = storyContainer.scrollTop;
 
         var dist = target - start;
         var duration = 300 + 300*dist/100;
@@ -183,12 +193,12 @@
             if( startTime == null ) startTime = time;
             var t = (time-startTime) / duration;
             var lerp = 3*t*t - 2*t*t*t; // ease in/out
-            outerScrollContainer.scrollTo(0, (1.0-lerp)*start + lerp*target);
+            storyContainer.scrollTo(0, (1.0-lerp)*start + lerp*target);
             if( t < 1 ) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
     }
-
+	
     // The Y coordinate of the bottom end of all the story content, used
     // for growing the container, and deciding how far to scroll.
     function contentBottomEdgeY() {
@@ -236,5 +246,37 @@
 
         return null;
     }
+	
+	function panelDisplay(variableName, newValue){
+		if (newValue)
+		{
+			if (document.querySelector("#left").classList.contains("invisible"))
+			{
+				document.querySelector("#left").classList.remove("invisible");
+				document.querySelector("#right").classList.remove("invisible");
+			}
+		}
+		else
+		{
+			if (!document.querySelector("#left").classList.contains("invisible"))
+			{
+				document.querySelector("#left").classList.add("invisible");
+				document.querySelector("#right").classList.add("invisible");
+			}
+		}
+	}
+	
+	function update_image(imageName, newValue){
+		var imageNode = document.querySelector("#" + imageName);
+		if (newValue != "")
+		{
+			imageNode.classList.remove("invisible");
+			imageNode.src = "images/" + newValue + ".png"
+		}
+		else
+		{
+			imageNode.classList.add("invisible");
+		}
+	}
 
 })(storyContent);

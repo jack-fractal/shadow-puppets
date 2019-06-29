@@ -12,15 +12,22 @@
 </head>
 
 <body>
-
+	
     <div class="outerContainer">
-        <h3 class="written-in-ink"><a href="https://www.inklestudios.com/ink">WRITTEN IN INK</a></h3>
+		<div id="left" class="displayPanel invisible">
+			<img id="left_foreground", class="displayImage invisible", style="z-index: 1;"></img>
+			<img id="left_background", class="displayImage invisible", style="z-index: 0;"></img>
+		</div>
         <div id="story" class="container">
             <div class="header">
                 <h1>Shadow Puppets</h1>
                 <h2 class="byline"></h2>
             </div>
         </div>
+		<div id="right" class="displayPanel invisible">
+			<img id="right_foreground", class="displayImage invisible", style="z-index: 1;"></img>
+			<img id="right_background", class="displayImage invisible", style="z-index: 0;"></img>
+		</div>
     </div>
 
     <script src="ink.js"></script>

@@ -45,7 +45,7 @@ h3.written-in-ink {
     font-family: sans-serif;
     text-align: center;
     font-weight: 700;
-    position: fixed;
+    /*position: fixed;*/
     display: block;
     width: 100%;
     background: white;
@@ -63,7 +63,6 @@ h3.written-in-ink {
 /* Seems necessary to make iframes work on itch.io on mobile iOS :-( */
 .outerContainer {
     position: absolute;
-    display: block;
     margin: 0;
     padding: 0;
     -webkit-overflow-scrolling: touch;
@@ -72,15 +71,32 @@ h3.written-in-ink {
     width: 100%;
     top: 0;
     left: 0;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
 }
 
 .container {
-    display: block;
-    max-width: 600px;
-    margin: 0 auto;
+    width: 600px;
     padding: 20px;
     padding-top: 4em;
     background: white;
+	overflow-y: auto;
+}
+
+.hidePanels .displayPanel {
+	display: none;
+}
+
+.displayPanel {
+	width: 200px;
+	height: 100%;
+	background-color: teal;
+}
+
+.displayPanel img {
+	position: absolute;
+	bottom: 0;
 }
 
 .dark .container {
@@ -136,7 +152,7 @@ img {
     opacity: 0.0;
 }
 
-.container .invisible {
+.invisible {
     display: none;
 }
 
@@ -169,4 +185,29 @@ p.choice a {
     color: white;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
